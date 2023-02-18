@@ -1,4 +1,5 @@
 require 'database_cleaner'
+require 'devise/jwt/test_helpers'
 
 # Configure DatabaseCleaner
 DatabaseCleaner.strategy = :transaction
