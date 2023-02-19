@@ -4,7 +4,7 @@ RSpec.describe CurrentUserController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
 
   before do
-    set_jwt_sign_in user, @request
+    sign_in user
   end
 
   describe "GET #index" do
