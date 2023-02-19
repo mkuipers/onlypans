@@ -6,7 +6,7 @@ RSpec.describe Api::V1::PansController, type: :controller do
   let(:serialized_pan) { PanSerializer.new(pan).serializable_hash[:data][:attributes] }
 
   before do
-    set_jwt_sign_in user, @request
+    sign_in user
   end
 
   describe 'GET index' do
