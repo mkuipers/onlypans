@@ -18,7 +18,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
 
     it "associates the comment with the current user" do
       post :create, params: { pan_id: pan.id, comment: { body: "Great pan!" } }, format: :json
-      expect(assigns(:comment).user).to eq(user)
+      expect(pan.comments.last.user).to eq(user)
     end
 
     it "returns a successful response" do
