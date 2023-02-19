@@ -26,14 +26,12 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        
-      - name: change directory
-        run: cd onlypans
 
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
+        working-directory: onlypans
 
       - name: Create and migrate database
         env:
@@ -41,8 +39,10 @@ jobs:
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
+        working-directory: onlypans
 
       - name: Run RSpec tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test_db
         run: bundle exec rspec
+        working-directory: onlypans
