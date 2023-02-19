@@ -43,19 +43,19 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
 
     it "deletes the comment" do
       expect {
-        delete :destroy, params: { id: comment.id }, format: :json
+        delete :destroy, params: { pan_id: pan.id, id: comment.id }, format: :json
       }.to change { pan.comments.count }.by(-1)
     end
 
     it "returns a no content response" do
-      delete :destroy, params: { id: comment.id }, format: :json
+      delete :destroy, params: { pan_id: pan.id, id: comment.id }, format: :json
       expect(response).to have_http_status(:no_content)
     end
 
     it "returns an error for unauthorized users" do
       other_user = create(:user)
       sign_in other_user
-      delete :destroy, params: { id: comment.id }, format: :json
+      delete :destroy, params: { pan_id: pan.id, id: comment.id }, format: :json
       expect(response).to have_http_status(:unauthorized)
       expect(JSON.parse(response.body)['errors']).to include('You are not authorized to delete this comment')
     end
