@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :pans, only: [:index, :show, :create, :update, :destroy]
+    end
+  end
+  
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
