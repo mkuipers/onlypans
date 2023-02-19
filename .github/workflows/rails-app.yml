@@ -19,8 +19,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: test_db
-    env:
-      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,6 +35,7 @@ jobs:
       - name: Create and migrate database
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test_db
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
@@ -45,5 +44,6 @@ jobs:
       - name: Run RSpec tests
         env:
           DATABASE_URL: postgres://postgres:password@localhost:5432/test_db
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
         run: bundle exec rspec
         working-directory: onlypans
