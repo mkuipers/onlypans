@@ -5,7 +5,7 @@ class Api::V1::CommentsController < ApplicationController
     @pan = Pan.find(params[:pan_id])
     @comment = @pan.comments.create(comment_params.merge(user: current_user))
     if @comment.valid?
-      render json: { comment: @comment }, status: :created
+      render json: CommentSerializer.new(@comment).serializable_hash[:data][:attributes], status: :created
     else
       render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
     end

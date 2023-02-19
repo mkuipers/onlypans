@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::CommentsController, type: :controller do
   let(:user) { create(:user) }
   let(:pan) { create(:pan) }
+  let(:serialized_pan) { PanSerializer.new(pan).serializable_hash[:data][:attributes] }
 
   before do
     sign_in user
@@ -27,7 +28,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
 
     it "returns the comment in the response" do
       post :create, params: { pan_id: pan.id, comment: { body: "Great pan!" } }, format: :json
-      expect(JSON.parse(response.body)['comment']['body']).to eq("Great pan!")
+      expect(JSON.parse(response.body)).to include("pan_id"=>pan.id, "body"=>"Great pan!")
     end
 
     it "returns an error for invalid parameters" do
