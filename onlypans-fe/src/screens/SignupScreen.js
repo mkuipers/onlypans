@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { showMessage } from "react-native-flash-message";
+
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,8 +29,14 @@ const SignupScreen = ({ navigation }) => {
         console.log("fail");
         console.log(JSON.stringify(error));
       });
+
+      showMessage({
+        message: "Success",
+        description: "You have successfully signed up!",
+        type: "success",
+      });      
+      navigation.navigate('Login');
       
-      // navigation.navigate('Login');
     } catch (error) {
       console.log(error);
     }

@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
+import FlashMessage from "react-native-flash-message";
 
-import { AuthContext } from './src/AppContext';
+import { AuthContext, NotificationContext } from './src/AppContext';
 
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -45,19 +47,23 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AuthContext.Provider value={authContext}>
-        <Stack.Navigator>
-          {userToken ? (
-            <Stack.Screen name="Home" component={HomeScreen}/>
-          ) : (
-            <>
-              <Stack.Screen name="Login" component={LoginScreen}/>
-              <Stack.Screen name="Signup" component={SignupScreen} />
-            </>
-          )}
-        </Stack.Navigator>
-      </AuthContext.Provider>
-    </NavigationContainer>
+    <View style={{ flex: 1 }}>
+      <NavigationContainer>
+        <AuthContext.Provider value={authContext}>
+          <Stack.Navigator>
+            
+            {userToken ? (
+              <Stack.Screen name="Home" component={HomeScreen}/>
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={LoginScreen}/>
+                <Stack.Screen name="Signup" component={SignupScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </AuthContext.Provider>
+      </NavigationContainer>
+      <FlashMessage position="top" /> 
+    </View>
   );
 }
