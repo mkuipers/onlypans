@@ -22,6 +22,23 @@ RSpec.describe Api::V1::PansController, type: :controller do
       get :index, format: :json
       expect(response.body).to eq([serialized_pan].to_json)
     end
+
+    describe 'returns another user\'s pans another user\'s id is provided in the query string' do
+      let(:another_user) { create(:user) }
+      let!(:another_user_pan) { create(:pan, user: another_user) }
+
+      before do
+        get :index, params: { user_id: another_user.id }, format: :json
+      end
+
+      it 'returns a successful response' do
+        expect(response).to be_successful
+      end
+
+      it 'returns the other user\'s pans' do
+        expect(response.body).to eq([PanSerializer.new(another_user_pan).serializable_hash[:data][:attributes]].to_json)
+      end
+    end
   end
 
   describe 'GET show' do

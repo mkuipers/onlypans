@@ -1,10 +1,10 @@
 class Api::V1::PansController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pan, only: [:show, :update, :destroy]
+  before_action :set_pans, only: [:index]
 
   # GET /pans
   def index
-    @pans = current_user.pans
     render json: @pans.map { |pan| PanSerializer.new(pan).serializable_hash[:data][:attributes] }
   end
 
@@ -39,6 +39,15 @@ class Api::V1::PansController < ApplicationController
   end
 
   private
+
+  def set_pans
+    if params[:user_id].present? 
+      @pans = User.find(params[:user_id]).pans
+    else
+      @pans = current_user.pans
+    end
+
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pan
