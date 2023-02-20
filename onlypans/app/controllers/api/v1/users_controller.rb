@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :update]
 
   def index
@@ -12,7 +13,6 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    params[:user].delete(:password) if params[:user][:password].blank?
     if @user.id == current_user.id # Only allow updates to current user's record
       if @user.update(user_params)
         render json: UserSerializer.new(@user).serializable_hash[:data][:attributes]

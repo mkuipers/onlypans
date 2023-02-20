@@ -6,7 +6,7 @@ import { showMessage } from "react-native-flash-message";
 
 import { AuthContext } from '../AppContext';
 
-const Header = () => {
+const Header = ({user}) => {
   const navigation = useNavigation();
   const authContext = useContext(AuthContext);
 
@@ -41,6 +41,9 @@ const Header = () => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Home')}>
         <Text style={styles.linkText}>Home</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Profile', {user: user})}>
+        <Text style={styles.linkText}>Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Upload')}>
         <Text style={styles.linkText}>Upload</Text>

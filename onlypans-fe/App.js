@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 import FlashMessage from "react-native-flash-message";
 
-import { AuthContext, NotificationContext } from './src/AppContext';
+import { AuthContext } from './src/AppContext';
 
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -13,6 +13,7 @@ import SignupScreen from './src/screens/SignupScreen';
 import UploadScreen from './src/screens/UploadScreen';
 import PansScreen from './src/screens/PansScreen';
 import PanDetailScreen from './src/screens/PanDetailScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -59,6 +60,7 @@ export default function App() {
             {userToken ? (
               <>
                 <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Profile" component={ProfileScreen}/>
                 <Stack.Screen name="Upload" component={UploadScreen}/>
                 <Stack.Screen name="Pans" component={PansScreen}/>
                 <Stack.Screen name="PanDetail" component={PanDetailScreen}/>
