@@ -5,7 +5,6 @@ class Api::V1::PansController < ApplicationController
   # GET /pans
   def index
     @pans = current_user.pans
-
     render json: @pans.map { |pan| PanSerializer.new(pan).serializable_hash[:data][:attributes] }
   end
 

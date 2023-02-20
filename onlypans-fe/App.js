@@ -10,6 +10,8 @@ import { AuthContext, NotificationContext } from './src/AppContext';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import UploadScreen from './src/screens/UploadScreen';
+import PansScreen from './src/screens/PansScreen';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +55,11 @@ export default function App() {
           <Stack.Navigator>
             
             {userToken ? (
-              <Stack.Screen name="Home" component={HomeScreen}/>
+              <>
+                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Upload" component={UploadScreen}/>
+                <Stack.Screen name="Pans" component={PansScreen}/>
+              </>
             ) : (
               <>
                 <Stack.Screen name="Login" component={LoginScreen}/>

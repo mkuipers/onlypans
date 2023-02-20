@@ -42,8 +42,11 @@ const Header = () => {
       <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Home')}>
         <Text style={styles.linkText}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Profile')}>
-        <Text style={styles.linkText}>Profile</Text>
+      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Upload')}>
+        <Text style={styles.linkText}>Upload</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Pans')}>
+        <Text style={styles.linkText}>Pans</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={handleLogout}>
         <Text style={styles.linkText}>Logout</Text>
