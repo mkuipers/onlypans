@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 
 import { AuthContext } from '../AppContext';
 
@@ -37,6 +37,8 @@ const Login = ({ navigation  }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Login</Text>
+      <Image source={require('../../assets/onlypansicon.png')} style={styles.image} />
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -95,7 +97,12 @@ const styles = StyleSheet.create({
   linkText: {
     color: 'blue',
     textDecorationLine: 'underline'
-  }
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
 });
 
 export default Login;
