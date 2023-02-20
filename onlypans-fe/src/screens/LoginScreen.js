@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
 
 import { AuthContext } from '../AppContext';
 
@@ -35,7 +35,7 @@ const Login = ({ navigation  }) => {
 
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.heading}>Login</Text>
       <Image source={require('../../assets/onlypansicon.png')} style={styles.image} />
 
@@ -58,7 +58,7 @@ const Login = ({ navigation  }) => {
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.linkText}>Don't have an account? Sign up here</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
