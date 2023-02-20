@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import Header from './Header';
+import { showMessage } from "react-native-flash-message";
+
+import Header from '../components/Header';
+
+import { AuthContext } from '../AppContext';
 
 
 const HomeScreen = () => {
+  const authContext = useContext(AuthContext);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -18,8 +23,17 @@ const HomeScreen = () => {
               Authorization: `Bearer ${userToken}`,
             },
           });
-          const data = await response.json();
-          setUser(data);
+          if (!response.ok) {
+            await authContext.signOut();
+            showMessage({
+              message: "Something went wrong",
+              description: "Please sign in again",
+              type: "warning",
+            }); 
+          } else {
+            const data = await response.json();
+            setUser(data);
+          }
         } catch (error) {
           console.error(error);
         }

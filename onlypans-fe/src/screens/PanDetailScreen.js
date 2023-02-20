@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Image } from 'react-native';
+import Comment from '../components/Comment';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -63,9 +64,7 @@ const PanDetailScreen = ({ route }) => {
         <Text style={styles.description}>{pan.description}</Text>
         {console.log(pan)}
         {pan.comments && pan.comments.map((comment) => (
-          <View style={styles.comment} key={comment.id}>
-            <Text>{comment.body}</Text>
-          </View>
+          <Comment key={comment.id} comment={comment} />
         ))}
         <TextInput
           style={styles.input}
