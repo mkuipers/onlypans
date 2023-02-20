@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
-const Login = ({ navigation }) => {
+import { AuthContext } from '../AppContext';
+
+const Login = ({ navigation  }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const authContext = useContext(AuthContext);
 
   const handleLogin = async () => {
     try {
@@ -21,8 +24,7 @@ const Login = ({ navigation }) => {
       const result = await response.headers.get('Authorization');
       if (result) {
         const token = result.split(' ')[1];
-        await SecureStore.setItemAsync('userToken', token);
-        navigation.navigate('Home');
+        await authContext.signIn(token);
       } else {
         console.log("Login failed");
       }

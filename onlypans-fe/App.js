@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
+
+import { AuthContext } from './src/AppContext';
 
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -44,16 +46,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {userToken ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </>
-        )}
-      </Stack.Navigator>
+      <AuthContext.Provider value={authContext}>
+        <Stack.Navigator>
+          {userToken ? (
+            <Stack.Screen name="Home" component={HomeScreen}/>
+          ) : (
+            <>
+              <Stack.Screen name="Login" component={LoginScreen}/>
+              <Stack.Screen name="Signup" component={SignupScreen} />
+            </>
+          )}
+        </Stack.Navigator>
+      </AuthContext.Provider>
     </NavigationContainer>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+import Header from './Header';
+
 
 const HomeScreen = () => {
   const [user, setUser] = useState(null);
@@ -29,6 +31,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Header />
       {user ? (
         <Text>Welcome, {user.email}!</Text>
       ) : (
