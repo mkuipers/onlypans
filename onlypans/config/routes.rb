@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :pans, only: [:index, :show, :create, :update, :destroy] do
         resources :comments, only: [:create, :destroy]
       end
+      resources :users, only: [:show, :update, :index]
     end
   end
   
