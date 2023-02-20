@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
+
 
 const PanScreen = () => {
   const [pans, setPans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchPans = async () => {
@@ -22,7 +25,7 @@ const PanScreen = () => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.panContainer}>
+    <TouchableOpacity style={styles.panContainer} onPress={() => navigation.navigate('PanDetail', { pan_id: item.id })}>
       <Image source={{ url: "http://192.168.1.96:4000" + item.image_url }} style={styles.panImage} />
       <Text style={styles.panName}>{item.name}</Text>
       <Text style={styles.panDescription}>{item.description}</Text>
