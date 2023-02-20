@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
+import { showMessage } from "react-native-flash-message";
 
 import { AuthContext } from '../AppContext';
 
@@ -29,6 +30,11 @@ const Header = () => {
     // handle logout logic here, e.g. clear token from securestore
     await invalidateUserToken();
     await authContext.signOut();
+    showMessage({
+      message: "Bye!",
+      description: "You have successfully signed out!",
+      type: "success",
+    });   
   };
 
   return (
