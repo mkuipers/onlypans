@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Image } from 'react-native';
+import Constants from 'expo-constants';
+
 import Comment from '../components/Comment';
 
 import * as SecureStore from 'expo-secure-store';
@@ -13,7 +15,7 @@ const PanDetailScreen = ({ route }) => {
 
   const fetchPan = async () => {
     const userToken = await SecureStore.getItemAsync('userToken');
-    const response = await fetch(`http://192.168.1.96:4000/api/v1/pans/${pan_id}`, {
+    const response = await fetch(`${Constants.expoConfig.extra.apiBaseUrl}/api/v1/pans/${pan_id}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -30,7 +32,7 @@ const PanDetailScreen = ({ route }) => {
   const handleSubmit = async () => {
     const userToken = await SecureStore.getItemAsync('userToken');
     try {
-      const response = await fetch(`http://192.168.1.96:4000/api/v1/pans/${pan_id}/comments`, {
+      const response = await fetch(`${Constants.expoConfig.extra.apiBaseUrl}/api/v1/pans/${pan_id}/comments`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -58,11 +60,10 @@ const PanDetailScreen = ({ route }) => {
       {loading ? (
         <ActivityIndicator />
       ) : <>
-        <Image source={{ url: "http://192.168.1.96:4000" + pan.image_url }} style={styles.panImage} />
+        <Image source={{ url: Constants.expoConfig.extra.apiBaseUrl + pan.image_url }} style={styles.panImage} />
         <Text style={styles.title}>{pan.name}</Text>
         <Text style={styles.rating}>{pan.rating}</Text>
         <Text style={styles.description}>{pan.description}</Text>
-        {console.log(pan)}
         {pan.comments && pan.comments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
         ))}

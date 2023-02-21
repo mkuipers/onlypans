@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Constants from 'expo-constants';
 import {
   Text,
   TextInput,
@@ -10,7 +11,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import * as SecureStore from 'expo-secure-store';
 
-const API_URL = 'http://192.168.1.96:4000/api/v1';
+const API_URL = Constants.expoConfig.extra.apiBaseUrl + '/api/v1';
 
 const ProfileScreen = ({ navigation, route }) => {
   const [username, setUsername] = useState(route.params.user.username);

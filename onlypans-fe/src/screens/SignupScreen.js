@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Constants from 'expo-constants';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 
@@ -10,7 +11,7 @@ const SignupScreen = ({ navigation }) => {
 
   const handleSignup = async () => {
     try {
-      fetch('http://192.168.1.96:4000/signup', {
+      fetch(Constants.expoConfig.extra.apiBaseUrl + '/signup', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

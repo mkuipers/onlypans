@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
+
 import * as SecureStore from 'expo-secure-store';
 
 
@@ -12,7 +14,7 @@ const PanScreen = () => {
   useEffect(() => {
     const fetchPans = async () => {
       const userToken = await SecureStore.getItemAsync('userToken');
-      const response = await fetch('http://192.168.1.96:4000/api/v1/pans', {
+      const response = await fetch(Constants.expoConfig.extra.apiBaseUrl + '/api/v1/pans', {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
@@ -26,7 +28,7 @@ const PanScreen = () => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.panContainer} onPress={() => navigation.navigate('PanDetail', { pan_id: item.id })}>
-      <Image source={{ url: "http://192.168.1.96:4000" + item.image_url }} style={styles.panImage} />
+      <Image source={{ url: Constants.expoConfig.extra.apiBaseUrl + item.image_url }} style={styles.panImage} />
       <Text style={styles.panName}>{item.name}</Text>
       <Text style={styles.panDescription}>{item.description}</Text>
     </TouchableOpacity>

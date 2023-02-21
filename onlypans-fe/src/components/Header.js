@@ -3,10 +3,14 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import { showMessage } from "react-native-flash-message";
+import Constants from 'expo-constants';
+
 
 import { AuthContext } from '../AppContext';
 
-const Header = ({user}) => {
+
+
+const Header = () => {
   const navigation = useNavigation();
   const authContext = useContext(AuthContext);
 
@@ -14,7 +18,7 @@ const Header = ({user}) => {
     const userToken = await SecureStore.getItemAsync('userToken');
     if (userToken) {
       try {
-        const response = await fetch('http://192.168.1.96:4000/logout', {
+        const response = await fetch(Constants.expoConfig.extra.apiBaseUrl + '/logout', {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },

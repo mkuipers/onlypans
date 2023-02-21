@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, Image, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-// import Constants from 'expo-constants';
+import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
 const UploadScreen = () => {
@@ -38,7 +38,7 @@ const UploadScreen = () => {
       type: 'image/jpg'
     });
 
-    fetch('http://192.168.1.96:4000/api/v1/pans', {
+    fetch(Constants.expoConfig.extra.apiBaseUrl + '/api/v1/pans', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${userToken}`,

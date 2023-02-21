@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { StyleSheet, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
+import Constants from 'expo-constants';
+
 
 import { AuthContext } from '../AppContext';
 
@@ -12,7 +14,7 @@ const Login = ({ navigation  }) => {
   const handleLogin = async () => {
     try {
       const body = JSON.stringify({user: { email, password }});
-      const response = await fetch('http://192.168.1.96:4000/login', {
+      const response = await fetch(Constants.expoConfig.extra.apiBaseUrl + '/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
